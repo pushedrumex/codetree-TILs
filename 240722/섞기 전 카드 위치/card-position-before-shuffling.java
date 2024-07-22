@@ -5,24 +5,24 @@ public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        int N = Integer.parseIng(br.readLine());
+        int N = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
         int[] idx = new int[N];
-        for (int i=0;i<n;i++) {
+        for (int i=0;i<N;i++) {
             idx[i] = Integer.parseInt(st.nextToken());
         }
         st = new StringTokenizer(br.readLine());
         int[] nums = new int[N];
-        for (int i=0;i<n;i++) {
-            nums[i] = Integer.parseInt(st.nextToken())
+        for (int i=0;i<N;i++) {
+            nums[i] = Integer.parseInt(st.nextToken());
         }
-        int[] newNums = new int[N];
-        int count = 3;
-        while (count-- > 0) {
+        int[] beforeNums = new int[N];
+
+        for (int count=0;count<3;count++) {
             for (int i=0;i<N;i++) {
-                newNums[idx[i]-1] = nums[i];
+                beforeNums[i] = nums[idx[i]-1];
             }
-            nums = newNums.clone();
+            nums = beforeNums.clone();
         }
         for (int num: nums) {
             System.out.println(num);
