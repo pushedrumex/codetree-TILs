@@ -36,7 +36,8 @@ public class Main {
                     upoint++;
                 }
             }
-            if (dpoint > upoint && count > dpoint) {
+
+            if (dpoint > upoint) {
                 if (count > dpoint) {
                     count = dpoint;
                     y = mid;
