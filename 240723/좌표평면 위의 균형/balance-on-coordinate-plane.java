@@ -2,6 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    static int M;
+    static Point[] points;
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -9,89 +12,73 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int R = Integer.parseInt(st.nextToken());
 
-        Point[] points = new Point[N];
+        points = new Point[N];
+        M = N;
         for (int i=0;i<N;i++) {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
             points[i] = new Point(x, y);
         }
+        dfs(0, R, 0, R);
+        System.out.println(M);
+    }
 
-        // y축 평행 직선 - 이분탐색
-        if (R % 2 != 0) {
-            R--;
-        }
-        int down = 0;
-        int up = R;
-        int y = 0;
-        int count = N;
-        while (down <= up) {
-            int mid = (down + up) / 2 - 1;
-            int dpoint = 0;
-            int upoint = 0;
-            for (Point point: points) {
-                if (point.y < mid) {
-                    dpoint++;
-                } else {
-                    upoint++;
-                }
-            }
+    // dfs + 이분탐색
+    static void dfs(int left, int right, int down, int up) {
+        // System.out.println(left+" "+right+" "+down+" "+up);
 
-            if (dpoint > upoint) {
-                if (count > dpoint) {
-                    count = dpoint;
-                    y = mid;
-                }
-                up = mid - 2;
-            } else {
-                if (count > upoint) {
-                    count = upoint;
-                    y = mid;
-                }
-                down = mid + 2;
-            }
+        if (left > right || down > up) {
+            return;
         }
 
-        // x축 평행 직선 - 이분탐색
-        int left = 0;
-        int right = R;
-        count = N;
-        while (left <= right) {
-            int mid = (left + right) / 2 - 1;
-            int ulpoint = 0;
-            int urpoint = 0;
-            int dlpoint = 0;
-            int drpoint = 0;
-            for (Point point: points) {
-                if (point.y > y) {
-                    if (point.x < mid) {
-                        ulpoint++;
-                    } else {
-                        urpoint++;
-                    }
+        int xMid = (left + right) / 2;
+        int yMid = (down + up) / 2;
+        if (xMid % 2 != 0) {
+            xMid++;
+        }
+        if (yMid % 2 != 0) {
+            yMid++;
+        }
+
+        int ulCount = 0;
+        int urCount = 0;
+        int dlCount = 0;
+        int drCount = 0;
+        for (Point point: points) {
+            if (point.y > yMid) {
+                if (point.x < xMid) {
+                    ulCount++;
                 } else {
-                    if (point.x < mid) {
-                        dlpoint++;
-                    } else {
-                        drpoint++;
-                    }
-                }
-            }
-            // System.out.println(ulpoint + " " +urpoint + " " + dlpoint + " " + drpoint);
-            int maxPoint = Arrays.stream(new int[]{ulpoint, urpoint, dlpoint, drpoint}).max().getAsInt();
-            if (maxPoint < count) {
-                count = maxPoint;
-                if (maxPoint == ulpoint || maxPoint == dlpoint) {
-                    right = mid - 2;
-                } else {
-                    left = mid + 2;
+                    urCount++;
                 }
             } else {
-                break;
+                if (point.x < xMid) {
+                    dlCount++;
+                } else {
+                    drCount++;
+                }
             }
         }
-        System.out.println(count);
 
+        int maxCount = Arrays.stream(new int[]{ulCount, urCount, dlCount, drCount}).max().getAsInt();
+        if (maxCount < M) {
+            M = maxCount;
+        }
+
+        if (maxCount == ulCount) {
+            dfs(left, xMid-2, down, up);
+            dfs(left, right, yMid+2, up);
+        } else if (maxCount == urCount) {
+            dfs(xMid+2, right, down, up);
+            dfs(left, right, yMid+2, up);
+        } else if (maxCount == dlCount) {
+            dfs(left, right, down, yMid-2);
+            dfs(left, xMid-2, down, up);
+        } else {
+            dfs(xMid+2, right, down, up);
+            dfs(left, right, down, yMid-2);
+        }
     }
     
     static class Point {
