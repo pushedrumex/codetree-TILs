@@ -26,7 +26,6 @@ public class Main {
 
     // dfs + 이분탐색
     static void dfs(int left, int right, int down, int up) {
-        // System.out.println(left+" "+right+" "+down+" "+up);
 
         if (left > right || down > up) {
             return;
