@@ -17,7 +17,7 @@ public class Main {
             points[i] = new Point(x, y);
         }
 
-        // x 평행 직선 - 이분탐색
+        // y축 평행 직선 - 이분탐색
         if (R % 2 != 0) {
             R--;
         }
@@ -37,22 +37,21 @@ public class Main {
                 }
             }
             if (dpoint > upoint && count > dpoint) {
-                count = dpoint;
-                y = mid;
+                if (count > dpoint) {
+                    count = dpoint;
+                    y = mid;
+                }
                 up = mid - 2;
-            } else if (upoint > dpoint && count > upoint) {
-                count = upoint;
-                y = mid;
-                down = mid + 2;
-            } else if (upoint == dpoint) {
-                y = mid;
-                break;
             } else {
-                break;
+                if (count < upoint) {
+                    count = upoint;
+                    y = mid;
+                }
+                down = mid + 2;
             }
         }
 
-        // y축 평행 직선 - 이분탐색
+        // x축 평행 직선 - 이분탐색
         int left = 0;
         int right = R;
         count = N;
@@ -62,7 +61,6 @@ public class Main {
             int urpoint = 0;
             int dlpoint = 0;
             int drpoint = 0;
-
             for (Point point: points) {
                 if (point.y > y) {
                     if (point.x < mid) {
@@ -78,6 +76,7 @@ public class Main {
                     }
                 }
             }
+            // System.out.println(ulpoint + " " +urpoint + " " + dlpoint + " " + drpoint);
             int maxPoint = Arrays.stream(new int[]{ulpoint, urpoint, dlpoint, drpoint}).max().getAsInt();
             if (maxPoint < count) {
                 count = maxPoint;
