@@ -18,12 +18,15 @@ public class Main {
             int y = Integer.parseInt(st.nextToken());
             points[i] = new Point(x, y);
         }
+
         int M = N;
-        for (Point point: points) {
-            M = Math.min(M, count(point.x+1, point.y+1));
-            M = Math.min(M, count(point.x+1, point.y-1));
-            M = Math.min(M, count(point.x-1, point.y+1));
-            M = Math.min(M, count(point.x-1, point.y-1));
+        for (Point point1: points) {
+            for (Point point2: points) {
+                M = Math.min(M, count(point1.x+1, point2.y+1));
+                M = Math.min(M, count(point1.x+1, point2.y-1));
+                M = Math.min(M, count(point1.x-1, point2.y+1));
+                M = Math.min(M, count(point1.x-1, point2.y-1));
+            }
         }
         System.out.println(M);
     }
