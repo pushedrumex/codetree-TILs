@@ -17,7 +17,7 @@ public class Main {
             points[i] = new Point(x, y);
         }
 
-        // y축 평행 직선 - 이분탐색
+        // x 평행 직선 - 이분탐색
         if (R % 2 != 0) {
             R--;
         }
@@ -52,7 +52,7 @@ public class Main {
             }
         }
 
-        // x축 평행 직선 - 이분탐색
+        // y축 평행 직선 - 이분탐색
         int left = 0;
         int right = R;
         count = N;
