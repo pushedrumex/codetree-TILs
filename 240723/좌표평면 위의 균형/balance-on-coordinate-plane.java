@@ -43,7 +43,7 @@ public class Main {
                 }
                 up = mid - 2;
             } else {
-                if (count < upoint) {
+                if (count > upoint) {
                     count = upoint;
                     y = mid;
                 }
