@@ -61,22 +61,21 @@ public class Main {
         }
 
         int maxCount = Arrays.stream(new int[]{ulCount, urCount, dlCount, drCount}).max().getAsInt();
-        if (maxCount < M) {
+        if (maxCount <= M) {
             M = maxCount;
-        }
-
-        if (maxCount == ulCount) {
-            dfs(left, xMid-2, down, up);
-            dfs(left, right, yMid+2, up);
-        } else if (maxCount == urCount) {
-            dfs(xMid+2, right, down, up);
-            dfs(left, right, yMid+2, up);
-        } else if (maxCount == dlCount) {
-            dfs(left, right, down, yMid-2);
-            dfs(left, xMid-2, down, up);
-        } else {
-            dfs(xMid+2, right, down, up);
-            dfs(left, right, down, yMid-2);
+            if (maxCount == ulCount) {
+                dfs(left, xMid-2, down, up);
+                dfs(left, right, yMid+2, up);
+            } else if (maxCount == urCount) {
+                dfs(xMid+2, right, down, up);
+                dfs(left, right, yMid+2, up);
+            } else if (maxCount == dlCount) {
+                dfs(left, right, down, yMid-2);
+                dfs(left, xMid-2, down, up);
+            } else {
+                dfs(xMid+2, right, down, up);
+                dfs(left, right, down, yMid-2);
+            }
         }
     }
     
