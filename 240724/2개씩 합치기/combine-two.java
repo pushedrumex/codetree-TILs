@@ -17,7 +17,7 @@ public class Main {
             pq.add(num);
         }
 
-        int cost = 0;
+        long cost = 0;
         while (pq.size() > 1) {
             int num1 = pq.remove();
             int num2 = pq.remove();
