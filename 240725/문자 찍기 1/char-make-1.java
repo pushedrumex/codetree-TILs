@@ -12,9 +12,9 @@ public class Main {
         for (String[] row: graph) {
             Arrays.fill(row, " ");
         }
-        
-        for (int x=0;x<4;x++) {
-            fill(x, m / 2, n--);
+
+        for (int x=0;x<n;x++) {
+            fill(x, m / 2, n-x);
         }
 
         for (String[] row: graph) {
