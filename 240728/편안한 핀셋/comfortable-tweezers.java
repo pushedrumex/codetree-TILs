@@ -10,8 +10,8 @@ public class Main {
         StringTokenizer st;
 
         int N = Integer.parseInt(br.readLine());
-        boolean[][] graph = new boolean[1000][1000];
-        int[][] pinCount = new int[1000][1000];
+        boolean[][] graph = new boolean[1001][1001];
+        int[][] pinCount = new int[1001][1001];
 
         int answer = 0;
         for (int k=0;k<N;k++) {
