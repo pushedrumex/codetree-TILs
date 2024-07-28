@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    
+
     static int[][] dxdy = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     public static void main(String[] args) throws Exception {
@@ -10,8 +10,8 @@ public class Main {
         StringTokenizer st;
 
         int N = Integer.parseInt(br.readLine());
-        boolean[][] graph = new boolean[N][N];
-        int[][] pinCount = new int[N][N];
+        boolean[][] graph = new boolean[1000][1000];
+        int[][] pinCount = new int[1000][1000];
 
         int answer = 0;
         for (int k=0;k<N;k++) {
