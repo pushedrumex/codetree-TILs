@@ -10,29 +10,27 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
         boolean[][] graph = new boolean[N][N];
+        int[][] pinCount = new int[N][N];
+        int answer = 0;
         for (int k=0;k<N;k++) {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
             graph[x][y] = true;
-            int answer = 0;
-            for (int i=0;i<N;i++) {
-                for (int j=0;j<N;j++) {
-                    if (graph[i][j] == false) {
-                        continue;
-                    }
-                    int pin = 0;
-                    for (int[] d: dxdy) {
-                        int _i = i + d[0];
-                        int _j = j + d[1];
-                        if (_i < 0 || _i >= N || _j < 0 || _j >= N || graph[_i][_j] == false) {
-                            continue;
-                        }
-                        pin++;
-                    }
-                    if (pin == 3) {
-                        answer++;
-                    }
+            for (int[] d: dxdy) {
+                int _x = x + d[0];
+                int _y = y + d[1];
+                if (_x < 0 || _x >= N || _y < 0 || _y >= N) {
+                    continue;
+                }
+                pinCount[_x][_y]++;
+                if (graph[_x][_y] == false) {
+                    continue;
+                }
+                if (pinCount[_x][_y] == 3) {
+                    answer++;
+                } else if (pinCount[_x][_y] == 4) {
+                    answer--;
                 }
             }
 
