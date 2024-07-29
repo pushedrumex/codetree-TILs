@@ -13,7 +13,6 @@ public class Main {
 
         boolean[] isPrime = new boolean[max+1];
         Arrays.fill(isPrime, true);
-        isPrime[1] = false;
         for (int i=2;i<=max;i++) {
             if (isPrime[i] == true) {
                 for (int j=i*2;j<=max;j+=i) {
@@ -23,13 +22,15 @@ public class Main {
         }
 
         long answer = 0;
-        for (int i=(int)Math.ceil(Math.pow(a, 0.5));i<=max;i++) {
+        for (int i=2;i<=max;i++) {
             if (!isPrime[i]) {
                 continue;
             }
             long j = i * i;
             while (j <= b) {
-                answer++;
+                if (a <= j) {
+                    answer++;
+                }
                 j *= i;
             }
         }
