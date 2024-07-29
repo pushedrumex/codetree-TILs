@@ -20,17 +20,16 @@ public class Main {
         int answer = 0;
         for (int i=0;i<n;i++) {
             int num = nums[i];
-            int count  = 0;
-            if (num == a) {
-                count++;
-                for (int j=i+1;j<n;j++) {
-                    if (nums[j] == num + d*(j-i)) {
-                        count++;
-                    } else {
-                        break;
-                    }
+            int count = 1;
+            int _d = d;
+            if (num != a) {
+                continue;
+            }
+            for (int j=i+1;j<n;j++) {
+                if (nums[j] == num + _d) {
+                    count++;
+                    _d += d;
                 }
-
             }
             answer = Math.max(answer, count);
         }
