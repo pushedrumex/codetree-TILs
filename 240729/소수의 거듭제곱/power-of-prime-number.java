@@ -31,6 +31,9 @@ public class Main {
                 if (a <= j) {
                     answer++;
                 }
+                if (j > b / i) {
+                    break;
+                }
                 j *= i;
             }
         }
