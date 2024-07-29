@@ -28,7 +28,7 @@ public class Main {
                 continue;
             }
 
-            int j = i;
+            long j = i;
             while (j < b) {
                 j *= i;
                 if (j >= a && j <= b) {
