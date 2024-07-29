@@ -23,16 +23,13 @@ public class Main {
         }
 
         long answer = 0;
-        for (int i=2;i<=max;i++) {
+        for (int i=(int)Math.ceil(Math.pow(a, 0.5));i<=max;i++) {
             if (!isPrime[i]) {
                 continue;
             }
-
             long j = i * i;
             while (j <= b) {
-                if (j >= a) {
-                    answer++;
-                }
+                answer++;
                 j *= i;
             }
         }
