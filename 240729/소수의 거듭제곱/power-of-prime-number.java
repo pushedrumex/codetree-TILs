@@ -22,11 +22,11 @@ public class Main {
         }
 
         long answer = 0;
-        for (int i=2;i<=max;i++) {
-            if (!isPrime[i]) {
+        for (long i=2;i<=max;i++) {
+            if (!isPrime[(int)i]) {
                 continue;
             }
-            long j = (long)i * i;
+            long j = i * i;
             while (j <= b) {
                 if (a <= j) {
                     answer++;
