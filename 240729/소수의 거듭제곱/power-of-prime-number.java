@@ -7,8 +7,8 @@ public class Main {
         StringTokenizer st;
 
         st = new StringTokenizer(br.readLine());
-        long a = Integer.parseInt(st.nextToken());
-        long b = Integer.parseInt(st.nextToken());
+        long a = Long.parseLong(st.nextToken());
+        long b = Long.parseLong(st.nextToken());
         int max = (int)Math.pow(b, 0.5);
 
         boolean[] isPrime = new boolean[max+1];
