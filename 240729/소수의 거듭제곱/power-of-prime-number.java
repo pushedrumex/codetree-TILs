@@ -29,8 +29,8 @@ public class Main {
             }
 
             long j = i * i;
-            while (j < b) {
-                if (j >= a && j <= b) {
+            while (j <= b) {
+                if (j >= a) {
                     answer++;
                 }
                 j *= i;
