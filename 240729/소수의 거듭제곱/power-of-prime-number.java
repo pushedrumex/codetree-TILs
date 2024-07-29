@@ -26,7 +26,7 @@ public class Main {
             if (!isPrime[i]) {
                 continue;
             }
-            long j = i * i;
+            long j = (long)i * i;
             while (j <= b) {
                 if (a <= j) {
                     answer++;
