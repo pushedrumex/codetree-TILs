@@ -23,8 +23,8 @@ public class Main {
         }
 
         long answer = 0;
-        for (int i=2;i<=max;i++) {
-            if (!isPrime[i]) {
+        for (long i=2;i<=max;i++) {
+            if (!isPrime[(int)i]) {
                 continue;
             }
 
@@ -37,7 +37,5 @@ public class Main {
             }
         }
         System.out.println(answer);
-        
-        // 여기에 코드를 작성해주세요.
     }
 }
