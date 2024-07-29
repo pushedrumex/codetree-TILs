@@ -29,14 +29,11 @@ public class Main {
             }
 
             long j = i * i;
-            while (true) {
+            while (j < b) {
                 if (j >= a && j <= b) {
                     answer++;
                 }
                 j *= i;
-                if (j > b) {
-                    break;
-                }
             }
         }
         System.out.println(answer);
