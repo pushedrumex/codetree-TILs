@@ -23,16 +23,19 @@ public class Main {
         }
 
         long answer = 0;
-        for (long i=2;i<=max;i++) {
-            if (!isPrime[(int)i]) {
+        for (int i=2;i<=max;i++) {
+            if (!isPrime[i]) {
                 continue;
             }
 
-            long j = i;
-            while (j < b) {
-                j *= i;
+            long j = i * i;
+            while (true) {
                 if (j >= a && j <= b) {
                     answer++;
+                }
+                j *= i;
+                if (j > b) {
+                    break;
                 }
             }
         }
