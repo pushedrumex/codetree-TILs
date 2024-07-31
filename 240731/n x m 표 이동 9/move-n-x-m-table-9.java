@@ -5,7 +5,7 @@ public class Main {
     static int n;
     static int m;
     static int[][] graph;
-    static boolean[][] visited;
+    static boolean[][][] visited;
     static int[][] dxdy = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     static int answer = -1;
 
@@ -18,7 +18,7 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
 
         graph = new int[n][m];
-        visited = new boolean[n][m];
+        visited = new boolean[n][m][2];
 
         for (int i=0;i<n;i++) {
             st = new StringTokenizer(br.readLine());
@@ -27,7 +27,7 @@ public class Main {
             }
         }
 
-        visited[0][0] = true;
+        visited[0][0][graph[0][0]] = true;
         bfs(0, 0);
         System.out.println(answer);
     }
@@ -35,9 +35,9 @@ public class Main {
     static void bfs(int x, int y) {
         ArrayDeque<Node> dq = new ArrayDeque<>();
         if (graph[x][y] == 1) {
-            dq.add(new Node(x, y, 1, true));
+            dq.add(new Node(x, y, 1, 1));
         } else {
-            dq.add(new Node(x, y, 1, false));
+            dq.add(new Node(x, y, 1, 0));
         }
         while (!dq.isEmpty()) {
             Node now = dq.removeFirst();
@@ -50,16 +50,18 @@ public class Main {
             for (int[] d: dxdy) {
                 int _x = now.x + d[0];
                 int _y = now.y + d[1];
-                if (_x < 0 || _x >= n || _y < 0 || _y >= m || visited[_x][_y]) {
+                if (_x < 0 || _x >= n || _y < 0 || _y >= m || visited[_x][_y][graph[_x][_y]]) {
                     continue;
                 }
-                if (now.one == true && graph[_x][_y] == 1) {
+                if (now.one == 1 && graph[_x][_y] == 1) {
                     continue;
                 }
-                visited[_x][_y] = true;
+                
                 if (graph[_x][_y] == 1) {
-                    dq.add(new Node(_x, _y, now.count+1, true));
+                    visited[_x][_y][1] = true;
+                    dq.add(new Node(_x, _y, now.count+1, 1));
                 } else {
+                    visited[_x][_y][now.one] = true;
                     dq.add(new Node(_x, _y, now.count+1, now.one));
                 }
             }
@@ -67,8 +69,8 @@ public class Main {
     }
     static class Node {
         int x, y, count;
-        boolean one;
-        Node(int x, int y, int count, boolean one) {
+        int one;
+        Node(int x, int y, int count, int one) {
             this.x = x;
             this.y = y;
             this.count = count;
