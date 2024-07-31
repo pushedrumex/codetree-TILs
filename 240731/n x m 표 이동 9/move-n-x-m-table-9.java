@@ -46,10 +46,10 @@ public class Main {
             for (int[] d: dxdy) {
                 int _x = now.x + d[0];
                 int _y = now.y + d[1];
-                if (_x < 0 || _x >= n || _y < 0 || _y >= m || visited[_x][_y][now.one])) {
+                if (_x < 0 || _x >= n || _y < 0 || _y >= m || visited[_x][_y][now.one]) {
                     continue;
                 }
-                
+
                 if (now.one == 1 && graph[_x][_y] == 1) {
                     continue;
                 }
