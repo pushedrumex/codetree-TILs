@@ -29,15 +29,16 @@ public class Main {
 
         visited[0][0] = true;
         bfs(0, 0);
-        if (answer == Integer.MAX_VALUE) {
-            answer = -1;
-        }
         System.out.println(answer);
     }
 
     static void bfs(int x, int y) {
         ArrayDeque<Node> dq = new ArrayDeque<>();
-        dq.add(new Node(x, y, 1, false));
+        if (graph[x][y] == 1) {
+            dq.add(new Node(x, y, 1, true));
+        } else {
+            dq.add(new Node(x, y, 1, false));
+        }
         while (!dq.isEmpty()) {
             Node now = dq.removeFirst();
 
