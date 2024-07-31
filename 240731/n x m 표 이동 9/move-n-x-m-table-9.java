@@ -29,7 +29,9 @@ public class Main {
 
         visited[0][0] = true;
         dfs(0, 0, false, 1);
-
+        if (answer == Integer.MAX_VALUE) {
+            answer = -1;
+        }
         System.out.println(answer);
     }
 
