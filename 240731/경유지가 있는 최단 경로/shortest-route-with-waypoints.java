@@ -15,9 +15,11 @@ public class Main {
                 graph[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-        for (int i=1;i<m;i++) {
-            graph[0][i] += graph[0][i-1];
+        for (int i=1;i<n;i++) {
             graph[i][0] += graph[i-1][0];
+        }
+        for (int j=1;j<m;j++) {
+            graph[0][j] += graph[0][j-1];
         }
         for (int i=1;i<n;i++) {
             for (int j=1;j<m;j++) {
