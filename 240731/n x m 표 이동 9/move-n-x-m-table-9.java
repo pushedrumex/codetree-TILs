@@ -34,11 +34,7 @@ public class Main {
 
     static void bfs(int x, int y) {
         ArrayDeque<Node> dq = new ArrayDeque<>();
-        if (graph[x][y] == 1) {
-            dq.add(new Node(x, y, 1, 1));
-        } else {
-            dq.add(new Node(x, y, 1, 0));
-        }
+        dq.add(new Node(x, y, 1, graph[x][y]));
         while (!dq.isEmpty()) {
             Node now = dq.removeFirst();
 
@@ -50,9 +46,10 @@ public class Main {
             for (int[] d: dxdy) {
                 int _x = now.x + d[0];
                 int _y = now.y + d[1];
-                if (_x < 0 || _x >= n || _y < 0 || _y >= m || visited[_x][_y][graph[_x][_y]]) {
+                if (_x < 0 || _x >= n || _y < 0 || _y >= m || visited[_x][_y][now.one])) {
                     continue;
                 }
+                
                 if (now.one == 1 && graph[_x][_y] == 1) {
                     continue;
                 }
