@@ -8,6 +8,8 @@ public class Main {
 
         ArrayDeque<Node> dq = new ArrayDeque<>();
         dq.add(new Node(1, 0, 0));
+        boolean[][] visited = new boolean[10000][10000];
+        visited[1][0] = true;
 
         while (!dq.isEmpty()) {
             Node node = dq.removeFirst();
@@ -18,13 +20,18 @@ public class Main {
                 System.out.println(count);
                 break;
             }
-            if (b > 0) {
+            if (b > 0 && !visited[a+b][b]) {
+                visited[a+b][b] = true;
                 dq.add(new Node(a+b, b, count+1));
             }
-            if (a > 1) {
+            if (a > 1 && !visited[a-1][b]) {
+                visited[a+b][b] = true;
                 dq.add(new Node(a-1, b, count+1));
             }
-            dq.add(new Node(a, a, count+1));
+            if (!visited[a][a]) {
+                visited[a][a] = true;
+                dq.add(new Node(a, a, count+1));
+            }
         }
 
     }
