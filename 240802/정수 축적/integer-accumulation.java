@@ -15,7 +15,9 @@ public class Main {
         }
         
         int[][] dp = new int[n+1][m+1];
+        // 일 인덱스
         for (int i=1;i<=n;i++) {
+            // 최대 한계 피로도
             for (int j=1;j<=m;j++) {
                 if (j > n-i) {
                     dp[i][j] = dp[i-1][j];
