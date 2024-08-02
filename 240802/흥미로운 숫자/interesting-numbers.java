@@ -12,8 +12,8 @@ public class Main {
         StringTokenizer st;
 
         st = new StringTokenizer(br.readLine());
-        X = Integer.parseInt(st.nextToken());
-        Y = Integer.parseInt(st.nextToken());
+        X = Long.parseLong(st.nextToken());
+        Y = Long.parseLong(st.nextToken());
 
         dfs(0);
         System.out.println(answer);
