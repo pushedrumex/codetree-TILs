@@ -2,8 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int Y;
-    static int X;
+    static long Y;
+    static long X;
     static int[] count = new int[10];
     static long answer = 0;
 
