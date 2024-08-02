@@ -19,11 +19,16 @@ public class Main {
         for (int i=1;i<=n;i++) {
             // 최대 한계 피로도
             for (int j=1;j<=m;j++) {
+                // 마지막에 피로도가 0이될 수 없다면
                 if (j > n-i) {
                     dp[i][j] = dp[i-1][j];
                     continue;
                 }
-                dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-1]+values[i-1]);
+                // MAX(바로 일을 하는 것, 휴식 후 하는 것)
+                dp[i][j] = dp[i-1][j-1]+values[i-1];
+                if (i > j) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i-j][j-1]+values[i-1]);
+                }
             }
         }
 
