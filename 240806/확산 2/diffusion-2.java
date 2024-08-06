@@ -10,34 +10,34 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
         int[][] graph = new int[n][m];
+
+        ArrayDeque<Node> dq = new ArrayDeque<>();
         for (int i=0;i<n;i++) {
             st = new StringTokenizer(br.readLine());
             for (int j=0;j<m;j++) {
                 graph[i][j] = Integer.parseInt(st.nextToken());
+                if (graph[i][j] == 1) {
+                    dq.add(new Node(i, j, 1));
+                }
             }
         }
 
-        int turn = 1;
+        int answer = 0;
         int[][] dxdy = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-        while (true) {
-            boolean change = false;
-            for (int i=0;i<n;i++) {
-                for (int j=0;j<m;j++) {
-                    if (graph[i][j] == turn) {
-                        for (int[] d: dxdy) {
-                            int x = i + d[0];
-                            int y = j + d[1];
-                            if (x < 0 || x >= n || y < 0 || y >=m || graph[x][y] != 0) continue;
-                            change = true;
-                            graph[x][y] = turn+1;
-                        }                  
-                    }
-                }
+        while (!dq.isEmpty()) {
+            Node node = dq.removeFirst();
+            int x = node.x;
+            int y = node.y;
+            int turn = node.turn;
+            for (int[] d: dxdy) {
+                int _x = x + d[0];
+                int _y = y + d[1];
+                if (_x < 0 || _x >= n || _y < 0 || _y >=m || graph[_x][_y] != 0) continue;
+                graph[_x][_y] = 1;
+                answer = turn;
+                dq.addLast(new Node(_x, _y, turn+1));
             }
-
-            if (change == true ) turn++;
-            else break;
         }
 
         for (int i=0;i<n;i++) {
@@ -48,15 +48,17 @@ public class Main {
                 }
             }
         }
-        System.out.println(turn-1);
+        System.out.println(answer);
     }
 
     static class Node {
         int x;
         int y;
-        Node (int x, int y) {
+        int turn;
+        Node (int x, int y, int turn) {
             this.x = x;
             this.y = y;
+            this.turn = turn;
         }
     }
 }
