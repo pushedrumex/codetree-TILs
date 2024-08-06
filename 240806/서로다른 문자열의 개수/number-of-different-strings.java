@@ -11,11 +11,10 @@ public class Main {
         for (int b=1;b<=n;b++) {
             dp[b][0] = 1;
             for (int a=1;a<=n;a++) {
-                if (a >= b) {
-                    dp[b][a] = dp[b][a-1];
+                if (a > b) {
                     continue;
                 }
-                dp[b][a] = dp[b][a-1]*2;
+                dp[b][a] = dp[b][a-1] + dp[b-1][a];
             }
         }
         System.out.println(dp[n][n]);
