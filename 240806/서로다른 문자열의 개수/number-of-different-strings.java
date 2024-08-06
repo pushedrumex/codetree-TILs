@@ -2,32 +2,22 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int one = 0;
-    static int zero = 0;
-    static HashSet<String> set = new HashSet<>();
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        one = Integer.parseInt(br.readLine());
-        dfs("");
-        System.out.println(set.size());
-    }
+        int n = Integer.parseInt(br.readLine());
+        int[][] dp = new int[n+1][n+1];
 
-    static void dfs(String s) {
-        if (one + zero == 0) {
-            set.add(s);
-            return;
+        // b의 개수 >= a의 개수
+        for (int b=1;b<=n;b++) {
+            dp[b][0] = 1;
+            for (int a=1;a<=n;a++) {
+                if (a >= b) {
+                    dp[b][a] = dp[b][a-1];
+                    continue;
+                }
+                dp[b][a] = dp[b][a-1]*2;
+            }
         }
-        if (one > 0) {
-            one--;
-            zero++;
-            dfs(s+"b");
-            one++;
-            zero--;
-        }
-        if (zero > 0) {
-            zero--;
-            dfs(s+"a");
-            zero++;
-        }
+        System.out.println(dp[n][n]);
     }
 }
