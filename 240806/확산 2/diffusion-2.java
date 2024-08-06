@@ -16,28 +16,26 @@ public class Main {
                 graph[i][j] = Integer.parseInt(st.nextToken());
             }
         }
-        int turn = 0;
+
+        int turn = 1;
         int[][] dxdy = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
         while (true) {
             boolean change = false;
-            ArrayList<Node> nodes = new ArrayList<>();
             for (int i=0;i<n;i++) {
                 for (int j=0;j<m;j++) {
-                    if (graph[i][j] == 1) {
-                        nodes.add(new Node(i, j));
+                    if (graph[i][j] == turn) {
+                        for (int[] d: dxdy) {
+                            int x = i + d[0];
+                            int y = j + d[1];
+                            if (x < 0 || x >= n || y < 0 || y >=m || graph[x][y] != 0) continue;
+                            change = true;
+                            graph[x][y] = turn+1;
+                        }                  
                     }
                 }
             }
-            for (Node node: nodes) {
-                for (int[] d: dxdy) {
-                    int x = node.x + d[0];
-                    int y = node.y + d[1];
-                    if (x < 0 || x >= n || y < 0 || y >=m || graph[x][y] != 0) continue;
-                    change = true;
-                    graph[x][y] = 1;
-                }
-            }
+
             if (change == true ) turn++;
             else break;
         }
@@ -50,7 +48,7 @@ public class Main {
                 }
             }
         }
-        System.out.println(turn);
+        System.out.println(turn-1);
     }
 
     static class Node {
