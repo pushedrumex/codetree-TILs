@@ -31,11 +31,11 @@ public class Main {
         }
 
         if (reverse == true) {
-            String answer = "";
+            StringBuffer answer = new StringBuffer();
             while (!dq.isEmpty()) {
-                answer += dq.removeLast() + " ";
+                answer.append(dq.removeLast()+" ");
             }
-            System.out.println(answer);
+            System.out.println(String.valueOf(answer));
         } else {
             System.out.println(String.join(" ", dq));
         }
