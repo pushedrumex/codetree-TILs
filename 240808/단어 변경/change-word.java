@@ -27,10 +27,19 @@ public class Main {
             }
         }
         
-        int answer = m - dp[n][m];
+        int answer = 0;
         if (n > m) {
+            // 제거
             answer += n-m;
+            // 변경
+            answer += m-dp[n][m];
+        } else if (n < m) {
+            // 추가
+            answer += m-n;
+            // 변경
+            answer += m-dp[n][m] - (m-n);
         }
+
         System.out.println(answer);
     }
 }
