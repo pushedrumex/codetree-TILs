@@ -27,7 +27,10 @@ public class Main {
             }
         }
         
-        int answer = m + Math.abs(n-m) - dp[n][m];
+        int answer = m - dp[n][m];
+        if (n > m) {
+            answer += n-m;
+        }
         System.out.println(answer);
     }
 }
