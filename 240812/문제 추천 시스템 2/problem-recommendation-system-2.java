@@ -23,7 +23,7 @@ public class Main {
             int p = Integer.parseInt(st.nextToken());
             int l = Integer.parseInt(st.nextToken());
             int g = Integer.parseInt(st.nextToken());
-            Problem problem = new Problem(p, l);
+            Problem problem = new Problem(p, l, g);
             totalSet.add(problem);
             if (!map.containsKey(g)) {
                 map.put(g, new TreeSet(maxComparator));
@@ -66,12 +66,12 @@ public class Main {
                 int x = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 if (x == 1) {
-                    Problem problem = totalSet.floor(new Problem(Integer.MAX_VALUE, l));
+                    Problem problem = totalSet.floor(new Problem(Integer.MAX_VALUE, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
                 } else if (x == -1) {
-                    Problem problem  = totalSet.higher(new Problem(-1, l));
+                    Problem problem  = totalSet.higher(new Problem(-1, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
@@ -85,7 +85,7 @@ public class Main {
                     totalSet.remove(problem);
                     map.get(g).remove(problem);
                 }
-                Problem problem = new Problem(p, l);
+                Problem problem = new Problem(p, l, g);
                 totalSet.add(problem);
                 if (!map.containsKey(g)) {
                     map.put(g, new TreeSet(maxComparator));
@@ -95,7 +95,9 @@ public class Main {
                 continue;
             } else if (cmd.equals("sv")) {
                 int p = Integer.parseInt(st.nextToken());
-                totalSet.remove(problemMap.get(p));
+                Problem problem = problemMap.get(p);
+                totalSet.remove(problem);
+                map.get(problem.g).remove(problem);
                 continue;
             }
             System.out.println(result);
@@ -105,9 +107,11 @@ public class Main {
     static class Problem {
         int p;
         int l;
-        Problem(int p, int l) {
+        int g;
+        Problem(int p, int l, int g) {
             this.p = p;
             this.l = l;
+            this.g = g;
         }
     }
 }
