@@ -5,7 +5,7 @@ public class Main {
     // 난이도 내림차순, 번호 내림차순
     static Comparator<Problem> comparator = (o1, o2) -> {
         if (o1.l != o2.l) return o1.l - o2.l;
-        return o1.p-o2.p;
+        return o1.p - o2.p;
     };
 
     static TreeSet<Problem> totalSet = new TreeSet(comparator);
@@ -67,12 +67,12 @@ public class Main {
                 int x = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 if (x == 1) {
-                    Problem problem = totalSet.ceiling(new Problem(-1, l, 0));
+                    Problem problem = totalSet.ceiling(new Problem(0, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
                 } else if (x == -1) {
-                    Problem problem  = totalSet.lower(new Problem(Integer.MAX_VALUE, l, 0));
+                    Problem problem  = totalSet.lower(new Problem(0, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
@@ -81,7 +81,7 @@ public class Main {
                 int p = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 int g = Integer.parseInt(st.nextToken());
-                
+
                 if (problemMap.containsKey(p)) {
                     Problem problem = problemMap.get(p);
                     totalSet.remove(problem);
