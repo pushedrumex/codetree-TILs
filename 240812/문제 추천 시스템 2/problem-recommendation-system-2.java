@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    // 난이도 내림차순, 번호 내림차순
     static Comparator<Problem> maxComparator = (o1, o2) -> {
         if (o1.l != o2.l) return o2.l - o1.l;
         return o2.p-o1.p;
@@ -24,7 +25,10 @@ public class Main {
             int g = Integer.parseInt(st.nextToken());
             Problem problem = new Problem(p, l);
             totalSet.add(problem);
-            map.getOrDefault(g, new TreeSet(maxComparator)).add(problem);
+            if (!map.containsKey(g)) {
+                map.put(g, new TreeSet(maxComparator));
+            }
+            map.get(g).add(problem);
             problemMap.put(p, problem);
         }
 
