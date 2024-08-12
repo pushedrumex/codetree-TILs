@@ -66,12 +66,12 @@ public class Main {
                 int x = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 if (x == 1) {
-                    Problem problem = totalSet.floor(new Problem(Integer.MAX_VALUE, l, 0));
+                    Problem problem = totalSet.floor(new Problem(-1, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
                 } else if (x == -1) {
-                    Problem problem  = totalSet.higher(new Problem(-1, l, 0));
+                    Problem problem  = totalSet.higher(new Problem(Integer.MAX_VALUE, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
