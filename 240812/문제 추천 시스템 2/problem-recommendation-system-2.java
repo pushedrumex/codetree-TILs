@@ -7,19 +7,9 @@ public class Main {
         return o2.p-o1.p;
     };
 
-    static Comparator<Problem> minComparator = (o1, o2) -> {
-        if (o1.l != o2.l) return o1.l - o2.l;
-        return o1.p-o2.p;
-    };
-
-    static PriorityQueue<Problem> totalMax = new PriorityQueue(maxComparator);
-    static PriorityQueue<Problem> totalMin = new PriorityQueue(minComparator);
-
-    static HashMap<Integer, PriorityQueue<Problem>> maxMap = new HashMap();
-    static HashMap<Integer, PriorityQueue<Problem>> minMap = new HashMap();
-
-    static HashMap<Integer, Integer> lMap = new HashMap(); // 난이도
-    static HashMap<Integer, Boolean> dMap = new HashMap(); // 제거 여부
+    static TreeSet<Problem> totalSet = new TreeSet(maxComparator);
+    static HashMap<Integer, TreeSet<Problem>> map = new HashMap();
+    static HashMap<Integer, Problem> problemMap = new HashMap();
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,93 +22,72 @@ public class Main {
             int p = Integer.parseInt(st.nextToken());
             int l = Integer.parseInt(st.nextToken());
             int g = Integer.parseInt(st.nextToken());
-            addProblem(p, l, g);
+            Problem problem = new Problem(p, l);
+            totalSet.add(problem);
+            map.getOrDefault(g, new TreeSet(maxComparator)).add(problem);
+            problemMap.put(p, problem);
         }
 
         int m = Integer.parseInt(br.readLine());
         for (int i=0;i<m;i++) {
             st = new StringTokenizer(br.readLine());
             String cmd = st.nextToken();
+            int result = -1;
+
             if (cmd.equals("rc1")) {
                 int x = Integer.parseInt(st.nextToken());
                 int g = Integer.parseInt(st.nextToken());
-                if (x == 1) {
-                    PriorityQueue<Problem> problems = maxMap.get(g);
-                    deleteInvalid(problems);
-                    if (problems.isEmpty()) {
-                        System.out.println(-1);
-                    } else {
-                        System.out.println(problems.peek().p);
+
+                TreeSet<Problem> problems = map.get(g);
+
+                if (!problems.isEmpty()) {
+                    if (x == 1) {
+                        result = problems.first().p;
+                    } else if (x == -1) {
+                        result = problems.last().p;
                     }
-                } else if (x == -1) {
-                    PriorityQueue<Problem> problems = minMap.get(g);
-                    deleteInvalid(problems);
-                    if (problems.isEmpty()) {
-                        System.out.println(-1);
-                    } else {
-                        System.out.println(problems.peek().p);
-                    }  
                 }
 
             } else if (cmd.equals("rc2")) {
                 int x = Integer.parseInt(st.nextToken());
-                if (x == 1) {
-                    deleteInvalid(totalMax);
-                    if (totalMax.isEmpty()) {
-                        System.out.println(-1);
-                    } else {
-                        System.out.println(totalMax.peek().p);
-                    }
-                } else if (x == -1) {
-                    deleteInvalid(totalMin);
-                    if (totalMin.isEmpty()) {
-                        System.out.println(-1);
-                    } else {
-                        System.out.println(totalMin.peek().p);
-                    }  
-                }
 
+                if (!totalSet.isEmpty()) {
+                    if (x == 1) {
+                        result = totalSet.first().p;
+                    } else if (x == -1) {
+                        result = totalSet.last().p;
+                    }
+                }
             } else if (cmd.equals("rc3")) {
                 int x = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 if (x == 1) {
+                    Problem problem = totalSet.floor(new Problem(Integer.MAX_VALUE, l));
+                    if (problem != null) {
+                        result = problem.p;
+                    }
                 } else if (x == -1) {
+                    Problem problem  = totalSet.higher(new Problem(-1, l));
+                    if (problem != null) {
+                        result = problem.p;
+                    }
                 }
-
             } else if (cmd.equals("ad")) {
                 int p = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 int g = Integer.parseInt(st.nextToken());
-                addProblem(p, l, g);
+                Problem problem = new Problem(p, l);
+                totalSet.add(problem);
+                map.getOrDefault(g, new TreeSet(maxComparator)).add(problem);
+                problemMap.put(p, problem);
+                continue;
             } else if (cmd.equals("sv")) {
                 int p = Integer.parseInt(st.nextToken());
-                dMap.put(p, true);
+                totalSet.remove(problemMap.get(p));
+                continue;
             }
+            System.out.println(result);
         }
-    }
-
-    static void deleteInvalid(PriorityQueue<Problem> problems) {
-        if (problems.isEmpty()) return;
-        while (!problems.isEmpty()) {
-            Problem problem = problems.peek();
-            if (dMap.get(problem.p) == false || lMap.get(problem.p) == problem.l) {
-                break;
-            }
-            problems.remove();
-        }
-    }
-
-    static void addProblem(int p, int l, int g) {
-        Problem problem = new Problem(p, l);
-
-        totalMax.add(problem);
-        totalMin.add(problem);
-
-        maxMap.getOrDefault(g, new PriorityQueue(maxComparator)).add(problem);
-        minMap.getOrDefault(g, new PriorityQueue(minComparator)).add(problem);
-
-        lMap.put(p, l);
-        dMap.put(p, false);
     }
 
     static class Problem {
