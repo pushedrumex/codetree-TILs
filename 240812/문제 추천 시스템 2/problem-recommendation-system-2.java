@@ -2,10 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    // 난이도 내림차순, 번호 내림차순
     static Comparator<Problem> comparator = (o1, o2) -> {
-        if (o1.l != o2.l) return o1.l - o2.l;
-        return o1.p - o2.p;
+        if (o1.l != o2.l) return o2.l - o1.l;
+        return o2.p-o1.p;
     };
 
     static TreeSet<Problem> totalSet = new TreeSet(comparator);
@@ -47,9 +46,9 @@ public class Main {
 
                 if (problems != null && !problems.isEmpty()) {
                     if (x == 1) {
-                        result = problems.last().p;
-                    } else if (x == -1) {
                         result = problems.first().p;
+                    } else if (x == -1) {
+                        result = problems.last().p;
                     }
                 }
 
@@ -58,21 +57,21 @@ public class Main {
 
                 if (!totalSet.isEmpty()) {
                     if (x == 1) {
-                        result = totalSet.last().p;
-                    } else if (x == -1) {
                         result = totalSet.first().p;
+                    } else if (x == -1) {
+                        result = totalSet.last().p;
                     }
                 }
             } else if (cmd.equals("rc3")) {
                 int x = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 if (x == 1) {
-                    Problem problem = totalSet.ceiling(new Problem(0, l, 0));
+                    Problem problem = totalSet.floor(new Problem(0, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
                 } else if (x == -1) {
-                    Problem problem  = totalSet.lower(new Problem(0, l, 0));
+                    Problem problem  = totalSet.higher(new Problem(0, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
@@ -81,7 +80,7 @@ public class Main {
                 int p = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 int g = Integer.parseInt(st.nextToken());
-
+                
                 if (problemMap.containsKey(p)) {
                     Problem problem = problemMap.get(p);
                     totalSet.remove(problem);
