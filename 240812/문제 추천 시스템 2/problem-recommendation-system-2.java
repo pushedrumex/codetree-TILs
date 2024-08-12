@@ -76,6 +76,11 @@ public class Main {
                 int p = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 int g = Integer.parseInt(st.nextToken());
+                if (problemMap.containsKey(p)) {
+                    Problem problem = problemMap.get(p);
+                    totalSet.remove(problem);
+                    map.get(g).remove(problem);
+                }
                 Problem problem = new Problem(p, l);
                 totalSet.add(problem);
                 map.getOrDefault(g, new TreeSet(maxComparator)).add(problem);
