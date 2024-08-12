@@ -3,12 +3,12 @@ import java.io.*;
 
 public class Main {
     // 난이도 내림차순, 번호 내림차순
-    static Comparator<Problem> maxComparator = (o1, o2) -> {
-        if (o1.l != o2.l) return o2.l - o1.l;
-        return o2.p-o1.p;
+    static Comparator<Problem> comparator = (o1, o2) -> {
+        if (o1.l != o2.l) return o1.l - o2.l;
+        return o1.p-o2.p;
     };
 
-    static TreeSet<Problem> totalSet = new TreeSet(maxComparator);
+    static TreeSet<Problem> totalSet = new TreeSet(comparator);
     static HashMap<Integer, TreeSet<Problem>> map = new HashMap();
     static HashMap<Integer, Problem> problemMap = new HashMap();
 
@@ -23,10 +23,11 @@ public class Main {
             int p = Integer.parseInt(st.nextToken());
             int l = Integer.parseInt(st.nextToken());
             int g = Integer.parseInt(st.nextToken());
+
             Problem problem = new Problem(p, l, g);
             totalSet.add(problem);
             if (!map.containsKey(g)) {
-                map.put(g, new TreeSet(maxComparator));
+                map.put(g, new TreeSet(comparator));
             }
             map.get(g).add(problem);
             problemMap.put(p, problem);
@@ -46,9 +47,9 @@ public class Main {
 
                 if (problems != null && !problems.isEmpty()) {
                     if (x == 1) {
-                        result = problems.first().p;
-                    } else if (x == -1) {
                         result = problems.last().p;
+                    } else if (x == -1) {
+                        result = problems.first().p;
                     }
                 }
 
@@ -57,21 +58,21 @@ public class Main {
 
                 if (!totalSet.isEmpty()) {
                     if (x == 1) {
-                        result = totalSet.first().p;
-                    } else if (x == -1) {
                         result = totalSet.last().p;
+                    } else if (x == -1) {
+                        result = totalSet.first().p;
                     }
                 }
             } else if (cmd.equals("rc3")) {
                 int x = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 if (x == 1) {
-                    Problem problem = totalSet.floor(new Problem(-1, l, 0));
+                    Problem problem = totalSet.ceiling(new Problem(-1, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
                 } else if (x == -1) {
-                    Problem problem  = totalSet.higher(new Problem(Integer.MAX_VALUE, l, 0));
+                    Problem problem  = totalSet.lower(new Problem(Integer.MAX_VALUE, l, 0));
                     if (problem != null) {
                         result = problem.p;
                     }
@@ -80,6 +81,7 @@ public class Main {
                 int p = Integer.parseInt(st.nextToken());
                 int l = Integer.parseInt(st.nextToken());
                 int g = Integer.parseInt(st.nextToken());
+                
                 if (problemMap.containsKey(p)) {
                     Problem problem = problemMap.get(p);
                     totalSet.remove(problem);
@@ -88,7 +90,7 @@ public class Main {
                 Problem problem = new Problem(p, l, g);
                 totalSet.add(problem);
                 if (!map.containsKey(g)) {
-                    map.put(g, new TreeSet(maxComparator));
+                    map.put(g, new TreeSet(comparator));
                 }
                 map.get(g).add(problem);
                 problemMap.put(p, problem);
