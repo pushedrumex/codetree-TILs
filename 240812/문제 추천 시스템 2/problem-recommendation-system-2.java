@@ -83,7 +83,10 @@ public class Main {
                 }
                 Problem problem = new Problem(p, l);
                 totalSet.add(problem);
-                map.getOrDefault(g, new TreeSet(maxComparator)).add(problem);
+                if (!map.containsKey(g)) {
+                    map.put(g, new TreeSet(maxComparator));
+                }
+                map.get(g).add(problem);
                 problemMap.put(p, problem);
                 continue;
             } else if (cmd.equals("sv")) {
