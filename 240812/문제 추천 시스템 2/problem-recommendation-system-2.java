@@ -40,7 +40,7 @@ public class Main {
 
                 TreeSet<Problem> problems = map.get(g);
 
-                if (!problems.isEmpty()) {
+                if (problems != null && !problems.isEmpty()) {
                     if (x == 1) {
                         result = problems.first().p;
                     } else if (x == -1) {
