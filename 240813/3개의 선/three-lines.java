@@ -37,6 +37,7 @@ public class Main {
         // 이미 지난 점
         if (xVisited.contains(x) || yVisited.contains(y)) {
             dfs(line, i+1);
+            return;
         }
         // x점
         xVisited.add(x);
