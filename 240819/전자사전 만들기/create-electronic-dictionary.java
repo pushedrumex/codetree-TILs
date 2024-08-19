@@ -27,7 +27,7 @@ public class Main {
             int idx = bs(prefix);
 
             int result = 0;
-            if (idx == -1 || idx+k-1 >= N) {
+            if (idx == -1 || idx+k-1 >= N || words.get(idx+k-1).str.length() < prefix.length()) {
                 result = -1;
             } else if (!words.get(idx+k-1).str.substring(0, prefix.length()).equals(prefix)) {
                 result = -1;
