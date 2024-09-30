@@ -39,7 +39,7 @@ public class Main {
             }
         }
 
-        int left = 1;
+        int left = 0;
         int right = 1_000_000_000;
         int answer = 0;
         while (left <= right) {
