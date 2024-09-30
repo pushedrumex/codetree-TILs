@@ -34,7 +34,6 @@ public class Main {
             if (diff1 >= diff2) answer++;
         }
         System.out.println(answer);
-        // 여기에 코드를 작성해주세요.
     }
 
     static int bs(int n, ArrayList<Integer> arr) {
@@ -44,7 +43,7 @@ public class Main {
         while (left <= right) {
             int mid = (left + right) / 2;
             int diff = Math.abs(arr.get(mid)-n);
-            if (diff < answer) {
+            if (diff <= answer) {
                 answer = diff;
                 if (arr.get(mid) > n) {
                     right = mid - 1;
