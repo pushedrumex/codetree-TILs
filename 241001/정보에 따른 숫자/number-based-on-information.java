@@ -11,53 +11,42 @@ public class Main {
         int A = Integer.parseInt(st.nextToken());
         int B = Integer.parseInt(st.nextToken());
 
-        ArrayList<Integer> ns = new ArrayList<>();
-        ArrayList<Integer> s = new ArrayList<>();
-
+        ArrayList<Info> infos = new ArrayList<>();
         for (int i=0;i<N;i++) {
             st = new StringTokenizer(br.readLine());
-            String d = st.nextToken();
-            int n = Integer.parseInt(st.nextToken());
-
-            if (d.equals("NS")) ns.add(n);
-            else s.add(n);
+            infos.add(new Info(st.nextToken(), Integer.parseInt(st.nextToken())));
         }
-
-        Collections.sort(ns);
-        Collections.sort(s);
-
+        Collections.sort(infos, (o1, o2) -> o1.n - o2.n);
         int answer = 0;
-        for (int i=A;i<=B;i++) {
-            int diff1 = bs(i, ns);
-            int diff2 = bs(i, s);
-
-            if (diff1 >= diff2) answer++;
+        if (infos.get(0).type.equals("S")) {
+            answer += infos.get(0).n - A;
+        }
+        if (infos.get(N-1).type.equals("S")) {
+            answer += B - infos.get(N-1).n + 1;
+        }
+        for (int i=0;i<N-1;i++) {
+            Info now = infos.get(i);
+            Info next = infos.get(i+1);
+            if (now.type.equals("S") && next.type.equals("S")) {
+                answer += next.n - now.n;
+            } else if (now.type.equals("NS") && next.type.equals("S")) {
+                answer += next.n - (now.n + next.n) / 2;
+                if ((now.n + next.n) % 2 > 0) answer++;
+            } else if (now.type.equals("S") && next.type.equals("NS")) {
+                answer += (now.n + next.n) / 2 - now.n + 1;
+            }
+            // 3 4 "5" 6 7
+            // 3 "4" 5 6
         }
         System.out.println(answer);
     }
 
-    static int bs(int n, ArrayList<Integer> arr) {
-        int left = 0;
-        int right = arr.size() - 1;
-        int answer = Integer.MAX_VALUE;
-        while (left <= right) {
-            int mid = (left + right) / 2;
-            int diff = Math.abs(arr.get(mid)-n);
-            if (diff < answer) {
-                answer = diff;
-                if (arr.get(mid) > n) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            } else {
-                if (arr.get(mid) < n) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            }
-        }
-        return answer;
+    static class Info {
+        String type;
+        int n;
+        Info(String type, int n) {
+            this.type = type;
+            this.n = n;
+        } 
     }
 }
