@@ -43,7 +43,7 @@ public class Main {
         while (left <= right) {
             int mid = (left + right) / 2;
             int diff = Math.abs(arr.get(mid)-n);
-            if (diff <= answer) {
+            if (diff < answer) {
                 answer = diff;
                 if (arr.get(mid) > n) {
                     right = mid - 1;
