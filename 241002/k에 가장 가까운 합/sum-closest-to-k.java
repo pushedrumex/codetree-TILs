@@ -10,24 +10,30 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
-        int[] nums = new int[n];
         st = new StringTokenizer(br.readLine());
+        HashSet<Integer> set = new HashSet<>();
+        HashMap<Integer, Integer> count  = new HashMap<>();
         for (int i=0;i<n;i++) {
-            nums[i] = Integer.parseInt(st.nextToken());
+            int num = Integer.parseInt(st.nextToken());
+            set.add(num);
+            count.put(num, count.getOrDefault(num, 0)+1);
         }
-        Arrays.sort(nums);
+        ArrayList<Integer> nums = new ArrayList<>(set);
+        Collections.sort(nums);
+
         int left = 0;
-        int right = n-1;
-        int count = 0;
+        int right = nums.size()-1;
+        int answer = 0;
+        if (nums.size() == 1) answer = count.get(nums.get(0)) * (count.get(nums.get(0)) - 1) / 2;
         int diff = Integer.MAX_VALUE;
         while (left < right) {
-            int sum = nums[left] + nums[right];
+            int sum = nums.get(left) + nums.get(right);
             int _diff = Math.abs(sum - k);
             if (_diff < diff) {
-                count = 1;
+                answer = count.get(nums.get(left)) * count.get(nums.get(right));
                 diff = _diff;
             } else if (_diff == diff) {
-                count++;
+                answer += count.get(nums.get(left)) * count.get(nums.get(right));
             }
             if (sum >= k) {
                 right--;
@@ -35,7 +41,7 @@ public class Main {
                 left++;
             }
         }
-        System.out.println(count);
-        // -1 1 2 2
+        System.out.println(answer);
+        // -1 1 1 1 2 2
     }
 }
