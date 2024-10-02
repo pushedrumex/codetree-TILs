@@ -29,12 +29,13 @@ public class Main {
             } else if (_diff == diff) {
                 count++;
             }
-            if (sum > k) {
+            if (sum >= k) {
                 right--;
             } else {
                 left++;
             }
         }
         System.out.println(count);
+        // -1 1 2 2
     }
 }
