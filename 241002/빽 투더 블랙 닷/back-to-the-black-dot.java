@@ -68,6 +68,7 @@ public class Main {
             if (visited[next] == false) {
                 visited[next] = true;
                 dfs(next, count+1, distance+redDistance[now][next]);
+                visited[next] = false;
             }
         }
     }
@@ -75,13 +76,13 @@ public class Main {
     static void dijkstra(int start, int[] distance) {
         Arrays.fill(distance, Integer.MAX_VALUE);
         distance[start] = 0;
-        PriorityQueue<Node> pq = new PriorityQueue<>((o1, o2) -> o1.n - o2.n);
+        PriorityQueue<Node> pq = new PriorityQueue<>((o1, o2) -> o1.distance - o2.distance);
         pq.add(new Node(start, 0));
 
         while (!pq.isEmpty()) {
             Node node = pq.remove();
             if (distance[node.n] < node.distance) continue;
-            for (Node next:graph[node.n]) {
+            for (Node next: graph[node.n]) {
                 int d = node.distance + next.distance;
                 if (d < distance[next.n]) {
                     distance[next.n] = d;
