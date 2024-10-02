@@ -11,14 +11,12 @@ public class Main {
         int k = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        HashSet<Integer> set = new HashSet<>();
         HashMap<Integer, Integer> count  = new HashMap<>();
         for (int i=0;i<n;i++) {
             int num = Integer.parseInt(st.nextToken());
-            set.add(num);
             count.put(num, count.getOrDefault(num, 0)+1);
         }
-        ArrayList<Integer> nums = new ArrayList<>(set);
+        ArrayList<Integer> nums = new ArrayList<>(count.keySet());
         Collections.sort(nums);
 
         int left = 0;
