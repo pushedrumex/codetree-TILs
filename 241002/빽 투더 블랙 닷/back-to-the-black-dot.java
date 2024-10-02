@@ -4,7 +4,7 @@ import java.io.*;
 public class Main {
     static ArrayList<Node>[] graph;
     static int answer = Integer.MAX_VALUE;
-    static int[] redNums;
+    static HashSet<Integer> redNums = new HashSet<>();
     static boolean[] visited;
     static int K;
     static int[][] redDistance;
@@ -18,11 +18,10 @@ public class Main {
         K = Integer.parseInt(st.nextToken());
 
         visited = new boolean[N+1];
-        redNums = new int[K];
         redDistance = new int[N+1][N+1];
         for (int i=0;i<K;i++) {
             int red = Integer.parseInt(br.readLine());
-            redNums[i] = red;
+            redNums.add(red);
         }
 
         graph = new ArrayList[N+1];
@@ -30,6 +29,7 @@ public class Main {
             graph[i] = new ArrayList<>();
         }
 
+        int minBlack = Integer.MAX_VALUE;
         for (int i=0;i<M;i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
@@ -37,6 +37,10 @@ public class Main {
             int d = Integer.parseInt(st.nextToken());
             graph[a].add(new Node(b, d));
             graph[b].add(new Node(a, d));
+
+            if ((redNums.contains(a) && !redNums.contains(b)) || (redNums.contains(b) && !redNums.contains(a))) {
+                minBlack = Math.min(minBlack, d);
+            }
         }
 
         // 빨간점 -> 모든점 다익스트라
@@ -51,10 +55,11 @@ public class Main {
             visited[red] = false;
         }
 
-        System.out.println(answer * 2);
+        System.out.println((answer + minBlack) * 2);
     }
 
     static void dfs(int now, int count, int distance) {
+        if (distance > answer) return;
         if (count == K) {
             answer = Math.min(answer, distance);
             return;
@@ -65,7 +70,6 @@ public class Main {
                 dfs(next, count+1, distance+redDistance[now][next]);
             }
         }
-
     }
 
     static void dijkstra(int start, int[] distance) {
