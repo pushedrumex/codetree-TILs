@@ -28,15 +28,12 @@ public class Main {
     }
 
     static void dfs(int i) {
+        if (getLength() / 2 >= answer) return;
+
         if (i == N) {
-            int temp = 0;
-            for (int o=1;o<=N;o++) {
-                for (int j=0;j<3;j++) {
-                    temp += Math.abs(order[o] - order[friend[o][j]]);
-                }
-            }
-            answer = Math.min(answer, temp / 2);
+            answer = Math.min(answer, getLength() / 2);
         }
+
         for (int k=1;k<=N;k++) {
             if (visited[k] == false) {
                 visited[k] = true;
@@ -45,5 +42,17 @@ public class Main {
                 visited[k] = false;
             }
         }
+    }
+
+    static int getLength() {
+        int temp = 0;
+        for (int o=1;o<=N;o++) {
+            if (visited[o] == false) continue;
+            for (int j=0;j<3;j++) {
+                if (visited[friend[o][j]] == false) continue;
+                temp += Math.abs(order[o] - order[friend[o][j]]);
+            }
+        }
+        return temp;
     }
 }
