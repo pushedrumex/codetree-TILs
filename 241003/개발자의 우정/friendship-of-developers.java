@@ -7,6 +7,7 @@ public class Main {
     static int[] order;
     static int answer = Integer.MAX_VALUE;
     static boolean[] visited;
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -32,6 +33,7 @@ public class Main {
 
         if (i == N) {
             answer = Math.min(answer, l);
+            return;
         }
 
         for (int k=1;k<=N;k++) {
