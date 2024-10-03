@@ -23,16 +23,18 @@ public class Main {
             }
         }
 
-        dfs(0, 0, N*3/2);
+        dfs(0);
         
         System.out.println(answer);
     }
 
-    static void dfs(int i, int l, int lineCount) {
-        if (l >= answer || l + lineCount >= answer) return;
+    // 백트래킹
+    static void dfs(int i) {
+        int minCost = getMinCost(i);
 
+        if (minCost >= answer) return;
         if (i == N) {
-            answer = Math.min(answer, l);
+            answer = minCost;
             return;
         }
 
@@ -40,17 +42,28 @@ public class Main {
             if (visited[k] == false) {
                 visited[k] = true;
                 order[k] = i;
-                int _l = 0;
-                int _lineCount = 0;
-                for (int j=0;j<3;j++) {
-                    if (visited[friend[k][j]] == true) {
-                        _l += Math.abs(order[k] - order[friend[k][j]]);
-                        _lineCount++;
-                    }
-                }
-                dfs(i+1, l+_l, lineCount - _lineCount);
+                dfs(i+1);
                 visited[k] = false;
             }
         }
+    }
+
+    static int getMinCost(int nowOrder) {
+        int cost = 0;
+        for (int i=1;i<=N;i++) {
+            for (int j=0;j<3;j++) {
+                int f = friend[i][j];
+                if (visited[i] && visited[f]) {
+                    cost += Math.abs(order[i] - order[f]);
+                } else if (visited[i] && !visited[f]) {
+                    cost += Math.abs(order[i] - nowOrder);
+                } else if (!visited[i] && visited[f]) {
+                    cost += Math.abs(nowOrder - order[f]);
+                } else {
+                    cost += 1;
+                }
+            }
+        }
+        return cost / 2;
     }
 }
