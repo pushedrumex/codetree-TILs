@@ -32,7 +32,7 @@ public class Main {
         if (l >= answer) return;
 
         if (i == N) {
-            answer = Math.min(answer, l);
+            answer = l;
             return;
         }
 
