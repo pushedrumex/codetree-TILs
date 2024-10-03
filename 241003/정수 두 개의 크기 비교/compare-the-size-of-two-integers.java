@@ -15,7 +15,7 @@ public class Main {
             nums[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(nums);
-        int answer = 0;
+        long answer = 0;
         for (int i=1;i<n;i++) {
             answer += i-bs(i);
         }
