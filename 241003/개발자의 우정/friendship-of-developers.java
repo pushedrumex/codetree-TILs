@@ -48,6 +48,7 @@ public class Main {
         }
     }
 
+    // 현재 상태의 가장 적은 비용
     static int getMinCost(int nowOrder) {
         int cost = 0;
         for (int i=1;i<=N;i++) {
