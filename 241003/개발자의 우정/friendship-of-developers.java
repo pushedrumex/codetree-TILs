@@ -5,7 +5,7 @@ public class Main {
     static int N;
     static int[][] friend;
     static int[] order;
-    static int answer = 1_000_000;
+    static int answer = Integer.MAX_VALUE;
     static boolean[] visited;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,37 +22,29 @@ public class Main {
             }
         }
 
-        dfs(0);
+        dfs(0, 0);
         
         System.out.println(answer);
     }
 
-    static void dfs(int i) {
-        if (getLength() >= answer * 2) return;
+    static void dfs(int i, int l) {
+        if (l >= answer) return;
 
         if (i == N) {
-            answer = Math.min(answer, getLength() / 2);
+            answer = Math.min(answer, l);
         }
 
         for (int k=1;k<=N;k++) {
             if (visited[k] == false) {
                 visited[k] = true;
                 order[k] = i;
-                dfs(i+1);
+                int _l = 0;
+                for (int j=0;j<3;j++) {
+                    if (visited[friend[k][j]] == true) _l += Math.abs(order[k] - order[friend[k][j]]);
+                }
+                dfs(i+1, l+_l);
                 visited[k] = false;
             }
         }
-    }
-
-    static int getLength() {
-        int temp = 0;
-        for (int o=1;o<=N;o++) {
-            if (visited[o] == false) continue;
-            for (int j=0;j<3;j++) {
-                if (visited[friend[o][j]] == false) continue;
-                temp += Math.abs(order[o] - order[friend[o][j]]);
-            }
-        }
-        return temp;
     }
 }
