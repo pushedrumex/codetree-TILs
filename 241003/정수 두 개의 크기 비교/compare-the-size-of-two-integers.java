@@ -22,8 +22,8 @@ public class Main {
         System.out.println(answer);
     }
 
-    static int bs(int i) {
-        int answer = i;
+    static long bs(int i) {
+        long answer = i;
         int left = 0;
         int right = i-1;
         while (left <= right) {
