@@ -23,16 +23,16 @@ public class Main {
             }
         }
 
-        dfs(0, 0);
+        dfs(0, 0, N*3/2);
         
         System.out.println(answer);
     }
 
-    static void dfs(int i, int l) {
-        if (l >= answer) return;
+    static void dfs(int i, int l, int lineCount) {
+        if (l >= answer || l + lineCount >= answer) return;
 
         if (i == N) {
-            answer = l;
+            answer = Math.min(answer, l);
             return;
         }
 
@@ -41,10 +41,14 @@ public class Main {
                 visited[k] = true;
                 order[k] = i;
                 int _l = 0;
+                int _lineCount = 0;
                 for (int j=0;j<3;j++) {
-                    if (visited[friend[k][j]] == true) _l += Math.abs(order[k] - order[friend[k][j]]);
+                    if (visited[friend[k][j]] == true) {
+                        _l += Math.abs(order[k] - order[friend[k][j]]);
+                        _lineCount++;
+                    }
                 }
-                dfs(i+1, l+_l);
+                dfs(i+1, l+_l, lineCount - _lineCount);
                 visited[k] = false;
             }
         }
