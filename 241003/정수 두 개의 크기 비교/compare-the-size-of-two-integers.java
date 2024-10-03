@@ -15,20 +15,20 @@ public class Main {
             nums[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(nums);
-        long answer = 0;
+        int answer = 0;
         for (int i=1;i<n;i++) {
             answer += i-bs(i);
         }
         System.out.println(answer);
     }
 
-    static long bs(int i) {
-        long answer = i;
+    static int bs(int i) {
+        int answer = i;
         int left = 0;
         int right = i-1;
         while (left <= right) {
             int mid = (left + right) / 2;
-            if (nums[mid] >= (float)nums[i] * 0.9) {
+            if (nums[mid] >= (double)nums[i] * 0.9) {
                 answer = mid;
                 right = mid-1;
             } else {
