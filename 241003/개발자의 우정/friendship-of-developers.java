@@ -5,7 +5,7 @@ public class Main {
     static int N;
     static int[][] friend;
     static int[] order;
-    static int answer = Integer.MAX_VALUE;
+    static int answer = 1_000_000;
     static boolean[] visited;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,7 +28,7 @@ public class Main {
     }
 
     static void dfs(int i) {
-        if (getLength() / 2 >= answer) return;
+        if (getLength() >= answer * 2) return;
 
         if (i == N) {
             answer = Math.min(answer, getLength() / 2);
