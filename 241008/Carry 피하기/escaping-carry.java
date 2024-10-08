@@ -14,11 +14,12 @@ public class Main {
         }
 
         dfs(0, 0, 0);
-
         System.out.println(answer);
     }
 
     static void dfs(int i, int sum, int count) {
+
+        if (count + n - i <= answer) return;
         if (i == n) {
             answer = Math.max(answer, count);
             return;
@@ -37,7 +38,7 @@ public class Main {
 
     static boolean isNotCarry(int n1, int n2) {
         if (n1 == 0 || n2 == 0) return true;
-        if ((n1 % 10 + n2 % 10) > 9) return false;
+        if (n1 % 10 + n2 % 10 > 9) return false;
         return isNotCarry(n1 / 10, n2 / 10);
     }
 }
