@@ -18,8 +18,9 @@ public class Main {
     }
 
     static void dfs(int i, int sum, int count) {
-
+        // 얻을 수 있는 최대 개수가 현재 개수 이하라면
         if (count + n - i <= answer) return;
+
         if (i == n) {
             answer = Math.max(answer, count);
             return;
@@ -28,12 +29,9 @@ public class Main {
         for (int j=i;j<n;j++) {
             // 선택 가능한 숫자라면 선택
             if (isNotCarry(sum, nums[i])) {
-                dfs(i+1, sum + nums[i], count+1);
+                dfs(j+1, sum + nums[i], count+1);
             }
-            // 현재 숫자 선택 X
-            dfs(i+1, sum, count);
         }
-
     }
 
     static boolean isNotCarry(int n1, int n2) {
