@@ -18,8 +18,12 @@ public class Main {
     }
 
     static void dfs(int i, int sum, int count) {
+        // 얻을 수 있는 최대 개수가 현재 개수 이하라면
+        if (count + n - i <= answer) return;
+
+        answer = Math.max(answer, count);
+
         if (i == n) {
-            answer = Math.max(answer, count);
             return;
         }
 
