@@ -29,7 +29,6 @@ public class Main {
             if (isNotCarry(sum, nums[j])) {
                 dfs(j+1, sum + nums[j], count+1);
             }
-            dfs(j+1, sum, count);
         }
     }
 
