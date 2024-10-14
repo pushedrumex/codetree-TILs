@@ -53,7 +53,7 @@ public class Main {
         for (int i=0;i<N;i++) {
             int need = goal[i] - stones[i];
             if (need > 0) answer += X * need;
-            else answer += Y * (-need)
+            else answer += Y * (-need);
         }
         System.out.println(answer);
     }
