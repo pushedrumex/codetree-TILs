@@ -29,14 +29,13 @@ public class Main {
             answer++;
             int count = countSet();
             if (count == 0) {
-                answer = -1;
+                answer = 0;
                 break;
             }
             if (count >= 2) {
                 break;
             }
         }
-
         System.out.println(answer);
     }
 
