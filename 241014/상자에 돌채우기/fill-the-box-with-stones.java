@@ -32,7 +32,7 @@ public class Main {
                 if (need > 0 && _need < 0) {
                     int move = Math.min(need, -_need);
                     // 옮기는 비용이 추가하는 비용보다 적다면
-                    if (move*(j-i)*Z < move*X) {
+                    if (move*(j-i)*Z <= move*X) {
                         answer += move*(j-i)*Z;
                         stones[i] += move;
                         stones[j] -= move;
@@ -41,7 +41,7 @@ public class Main {
                 } else if (need < 0 && _need > 0) {
                     int move = Math.min(-need, _need);
                     // 옮기는 비용이 제거하는 비용보다 적다면
-                    if (move*(j-i)*Z < move*Y) {
+                    if (move*(j-i)*Z <= move*Y) {
                         answer += move*(j-i)*Z;
                         stones[i] -= move;
                         stones[j] += move;
