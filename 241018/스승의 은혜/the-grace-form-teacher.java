@@ -29,7 +29,8 @@ public class Main {
             Arrays.sort(presents, (o1, o2) -> {
                 double diff = (o1.cost + o1.delivery) - (o2.cost + o2.delivery);
                 if (diff < 0) return -1;
-                return 1;
+                if (diff > 0) return 1;
+                return 0;
             });
             answer = Math.max(answer, countMax());
 
