@@ -22,7 +22,7 @@ public class Main {
         }
         
         int answer = 0;
-        // 하나씩 할인해보자
+        // 하나씩 할인
         for (int i=0;i<N;i++) {
             presents[i].cost /= 2;
 
@@ -42,7 +42,7 @@ public class Main {
 
     static int countMax() {
         int count = 0;
-        int money = B;
+        double money = B;
         for (int i=0;i<N;i++) {
             double totalCost = presents[i].cost + presents[i].delivery;
             if (money >= totalCost) {
