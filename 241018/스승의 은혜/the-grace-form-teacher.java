@@ -26,7 +26,11 @@ public class Main {
         for (int i=0;i<N;i++) {
             presents[i].cost /= 2;
 
-            Arrays.sort(presents, (o1, o2) -> ((int)o1.cost + o1.delivery) - ((int)o2.cost + o2.delivery));
+            Arrays.sort(presents, (o1, o2) -> {
+                double diff = (o1.cost + o1.delivery) - (o2.cost + o2.delivery);
+                if (diff < 0) return -1;
+                return 1;
+            });
             answer = Math.max(answer, countMax());
 
             presents[i].cost *= 2;
