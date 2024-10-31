@@ -24,9 +24,10 @@ public class Main {
             // j원 만들기
             for (int j=coin;j<=m;j++) {
                 dp[j] += dp[j-coin];
+                dp[j] %= 1_000_000_007;
             }
         }
-
+        if (dp[m] == 0) dp[m] = -1;
         System.out.println(dp[m]);
     }
 }
